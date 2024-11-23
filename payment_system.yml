@@ -15,19 +15,19 @@ services:
       - teia  
     command: ./entrypoint.sh  # tail -f /dev/null >> Deixa o container rodando
     depends_on:
-      mysql:
+      db_mysql:
         condition: service_healthy
-      # postgresql:
+      # db_postgresql:
       #   condition: service_healthy
     
-  mysql:
+  db_mysql:
     container_name: db_mysql
     image: mysql:latest
     restart: always
     ports:
       - 3306:3306
-    # expose:
-    #   - "3306"
+    expose:
+      - "3306"
     env_file:
       - .env
     # volumes:
@@ -44,7 +44,7 @@ services:
       timeout: 10s
       retries: 5
 
-  pma:
+  gui_pma:
     container_name: gui_pma
     image: phpmyadmin
     ports:
@@ -56,10 +56,10 @@ services:
     networks:
       - teia
     depends_on:
-      mysql:
+      db_mysql:
         condition: service_healthy
 
-  # postgresql:
+  # db_postgres:
 
   #   container_name: 'db_postgres'
   #   image: postgres:latest
@@ -80,7 +80,7 @@ services:
   #     timeout: 5s
   #     retries: 5
   
-  # pgadmin:
+  # gui_pgadmin:
 
   #   container_name: 'gui_pgadmin'
   #   image: dpage/pgadmin4:8.13
@@ -93,7 +93,7 @@ services:
   #   # volumes:
   #     # - ./config.py:/pgadmin4/config.py  # Monta o arquivo de configuração
   #   depends_on:
-  #     postgresql: 
+  #     db_postgres: 
   #       condition: service_healthy
 
 networks:

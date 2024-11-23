@@ -10,11 +10,11 @@ class Config:
     #Senha do usuario da DB
     DB_PASSWORD = os.getenv('DB_PASSWORD', '')    
     #Endereco do Servidor DB
-    DB_HOST = os.getenv('DB_HOST', 'localhost')
+    DB_HOST = os.getenv('DB_HOST', '172.20.0.2')
     #Porta de Conexao ao DB
     DB_PORT = os.getenv('DB_PORT', '3306')
     #Tipo de database
-    DB_NAME = os.getenv('DB_NAME', 'mydb')
+    DB_DATABASE = os.getenv('DB_DATABASE', 'mydb')
 
     # >>> ORM <<<
     SQLALCHEMY_TRACK_MODIFICATIONS = os.getenv('SQLALCHEMY_TRACK_MODIFICATIONS', 'False')
@@ -31,11 +31,11 @@ class Config:
             #Senha MySQL
             MYSQL_PASSWORD = os.getenv('DB_PASSWORD', '')
             #Endereco do Servidor MySQL
-            MYSQL_HOST = os.getenv('DB_HOST', '172.20.0.2')
+            MYSQL_HOST = os.getenv('DB_HOST', 'mysql')
             #Porta de Conexao ao MySQL
             MYSQL_PORT = os.getenv('DB_PORT', '3306')
             #Tipo de database MySQL
-            MYSQL_DB = os.getenv('DB_NAME', 'mydb')
+            MYSQL_DB = os.getenv('DB_DATABASE', 'mydb')
             return f"mysql+pymysql://{MYSQL_USER}:{MYSQL_PASSWORD}@{MYSQL_HOST}:{MYSQL_PORT}/{MYSQL_DB}"
         
         elif DB_TYPE == "postgres":
@@ -44,11 +44,11 @@ class Config:
             #Senha do usuario da DB
             POSTGRES_PASSWORD = os.getenv('DB_PASSWORD', '')    
             #Endereco do Servidor DB
-            POSTGRES_HOST = os.getenv('DB_HOST', '172.20.0.2')
+            POSTGRES_HOST = os.getenv('DB_HOST', 'postgres')
             #Porta de Conexao ao DB
             POSTGRES_PORT = os.getenv('DB_PORT', '5432')
             #Tipo de database
-            POSTGRES_DB = os.getenv('DB_NAME', 'mydb')
+            POSTGRES_DB = os.getenv('DB_DATABASE', 'mydb')
             return f"postgresql+psycopg2://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}:{POSTGRES_PORT}/{POSTGRES_DB}"
 
         else:

@@ -63,7 +63,7 @@ echo ">>> ------------------------------------------------------------- >>>"
 # >> Servidor de desenvolvimento 
 # Ajustar os caminhos dos modulos para relativo (from .db import db)
 flask --app app:app run --host='0.0.0.0' --port 5001 --debugger --reload 
-# tail -f /dev/null
+tail -f /dev/null
 
 # >> Servidor de produção
 # Ajustar o caminho dos modulos para absoluto (from app.db import db)
