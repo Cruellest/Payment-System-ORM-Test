@@ -1,12 +1,20 @@
-# Payment-System-ORM-Test
+# Payment System
+
 This repository is an recreational implementation of an connection system using SQLAlchemy and Flask
 
-To install the code dependencies run the command:
-~~~
-pip install -r requirements.txt
-~~~
+First, got to the `env_model` file and set up your own variables. Then, to run the app, in the root of your project run:
+````sh
+docker compose -f payment_system.yml up
+````
+- if you want to follow the logs, or
+````sh
+docker compose -f payment_system.yml up -d
+````
+- if you don't.
 
-To run the app, in the root of your project run:
-~~~
-py ./app.py
-~~~
+To stop the application, run:
+````sh
+docker compose -f payment_system.yml stop
+````
+
+

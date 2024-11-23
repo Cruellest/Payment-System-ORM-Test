@@ -1,0 +1,101 @@
+services:
+  app:
+    container_name: payment_system
+    image: python:3.10-alpine3.20
+    ports:
+      - "5001:5001"
+    expose:
+      - "5001"
+    working_dir: /home/src/
+    volumes:
+      - ./src/:/home/src/
+    env_file:
+      - .env
+    networks:
+      - teia  
+    command: ./entrypoint.sh  # tail -f /dev/null >> Deixa o container rodando
+    depends_on:
+      mysql:
+        condition: service_healthy
+      # postgresql:
+      #   condition: service_healthy
+    
+  mysql:
+    container_name: db_mysql
+    image: mysql:latest
+    restart: always
+    ports:
+      - 3306:3306
+    # expose:
+    #   - "3306"
+    env_file:
+      - .env
+    # volumes:
+      # - ./db/mysql/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+    networks:
+      - teia
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "mysqladmin ping -h mysql -u root --password=$MYSQL_ROOT_PASSWORD",
+        ]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+
+  pma:
+    container_name: gui_pma
+    image: phpmyadmin
+    ports:
+      - 8080:80
+    env_file:
+      - .env
+    volumes:
+      - ./db/mysql/phpmyadmin/apache_custom.conf:/etc/apache2/sites-available/000-default.conf
+    networks:
+      - teia
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  # postgresql:
+
+  #   container_name: 'db_postgres'
+  #   image: postgres:latest
+  #   restart: always
+  #   env_file:
+  #     - .env
+  #   ports:
+  #     - "7777:5432"
+  #   networks:
+  #     - teia
+  #   healthcheck:
+  #     test:
+  #       [
+  #         "CMD-SHELL",
+  #         "pg_isready -U postgres",
+  #       ]
+  #     interval: 10s
+  #     timeout: 5s
+  #     retries: 5
+  
+  # pgadmin:
+
+  #   container_name: 'gui_pgadmin'
+  #   image: dpage/pgadmin4:8.13
+  #   env_file:
+  #     - .env
+  #   ports:
+  #     - "7878:80"
+  #   networks:
+  #     - teia
+  #   # volumes:
+  #     # - ./config.py:/pgadmin4/config.py  # Monta o arquivo de configuração
+  #   depends_on:
+  #     postgresql: 
+  #       condition: service_healthy
+
+networks:
+  teia:
+    driver: bridge
