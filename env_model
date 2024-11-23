@@ -1,31 +1,28 @@
 # ---------------- Variáveis de Ambiente ----------------
 # >>> Este arquivo é um modelo para a criação do arquivo .env. Após a renomeação do arquivo env_model para .env, adicione as variáveis de ambiente necessárias para a aplicação, observando as configurações do compose `payment_system.yml`. 
 
+# ---------------- Variáveis de Ambiente ----------------
 # >>> Configurações da Aplicação <<<
 FLASK_ADMIN_SWATCH=yeti
-SECRET_KEY='sua_chave_secreta'
+SECRET_KEY='ChavesChavesChaves voce me deixa louco'
 SQLALCHEMY_TRACK_MODIFICATIONS=False
 FLASK_APP=app:app
 APP_PORT=5001
 APP_DEBUG=True
 
 # >>> Configurações do Banco de Dados <<<
+DB_TYPE=mysql
 # >>> MySQL <<<
-# MYSQL_ALLOW_EMPTY_PASSWORD=yes
-MYSQL_ROOT_PASSWORD=
-MYSQL_PASSWORD=
-MYSQL_HOST=mysql    # Nome/IP do serviço (do compose) ou da sua rede
-MYSQL_USER=
-MYSQL_DATABASE=
-MYSQL_PORT=
+MYSQL_ALLOW_EMPTY_PASSWORD=yes
+MYSQL_ROOT_PASSWORD=raiz
+DB_PASSWORD=raiz
+DB_HOST=db_mysql # Nome/IP do serviço (do compose) ou da sua rede
+DB_USER=mysql
+DB_DATABASE=mydb
+DB_PORT=3306
+PMA_ARBITRARY=1
 
-# >>> PostgreSQL <<<
-POSTGRES_DB=
-POSTGRES_USER=
-POSTGRES_PASSWORD=
-POSTGRES_HOST= # Nome/IP do container ou da sua rede
-POSTGRES_PORT=
+# >>> PostgreSQL + PgAdmin <<<
 TZ=America/Campo_Grande
-
 PGADMIN_DEFAULT_EMAIL=
 PGADMIN_DEFAULT_PASSWORD=
