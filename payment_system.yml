@@ -38,7 +38,7 @@ services:
       test:
         [
           "CMD-SHELL",
-          "mysqladmin ping -h mysql -u root --password=$MYSQL_ROOT_PASSWORD",
+          "mysqladmin ping -h db_mysql -u root --password=$MYSQL_ROOT_PASSWORD",
         ]
       interval: 10s
       timeout: 10s
